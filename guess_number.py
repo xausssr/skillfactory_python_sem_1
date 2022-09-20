@@ -44,12 +44,14 @@ def evaluate_predict(predictor: Callable[[int], int], rounds:int=1000) -> Tuple[
     """
 
     results = np.zeros((rounds,)) # массив для сохранения результатов
-    inputs_values = np.random.randint(1, 101, size=(rounds))
+    inputs_values = np.random.randint(1, 101, size=(rounds)) # массив случайных чисел для функции угадывания
     for idx in range(rounds):
         results[idx] = predictor(inputs_values[idx])
 
     return (results.mean(), results.std())
 
-print(f"Один запуск {random_predict()} попыток на угадывание.")
-mean_attempts, std_attempts = evaluate_predict(random_predict)
-print(f"Среднее число попыток: {mean_attempts:.1f}±{std_attempts:.2f}")
+
+if __name__ == "__main__":
+    print(f"Один запуск {random_predict()} попыток на угадывание.")
+    mean_attempts, std_attempts = evaluate_predict(random_predict)
+    print(f"Среднее число попыток: {mean_attempts:.1f}±{std_attempts:.2f}")
